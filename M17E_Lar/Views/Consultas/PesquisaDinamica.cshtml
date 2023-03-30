@@ -1,0 +1,43 @@
+﻿
+@{
+    ViewBag.Title = "PesquisaDinamica";
+}
+
+<h2>Pesquisa Dinamica</h2>
+
+<form method="post" id="FormPesquisa">
+    Nome:
+<input autocomplete="off" type="text" name="tbNome" id="tbNome" class="form-control" />
+<input type="submit" value="Pesquisar" class="btn btn-default" />
+</form>
+
+<div id="divfamiliar"></div>
+<script>window.onload = function () {
+        $("#tbNome").on('input', function () {
+            console.log("ola");
+            CarregarDados();
+        });
+        $("#FormPesquisa").submit(function (e) {
+            CarregarDados();
+            e.preventDefault();
+        });
+    }
+    function CarregarDados() {
+        $("#divfamiliar").empty();
+        if ($("#tbNome").val() == "" || $("#tbNome").val() == undefined) return;
+        $.ajax(
+            {
+                type: "GET",
+                url: "PesquisaNome",
+                data: "nome=" + $("#tbNome").val(),
+                success: function (dados) {
+                    $("#divfamiliar").empty();
+                    for (let i = 0; i < dados.length; i++)
+                        $("#divfamiliar").append("<p>"+dados[i].nome+"</p>");
+                },
+                error: function (dados) {
+                    console.log(dados);
+                }
+            }
+        );
+    }</script>

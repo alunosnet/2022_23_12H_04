@@ -1,0 +1,69 @@
+﻿@model IEnumerable<M17E_Lar.Models.MedicaIdoso>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Criar", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.idoso.Nome)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.medicamento.Nome)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.data_inicio)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.data_fim)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Dose)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Obs)
+        </th>
+        <th>
+            Dias de Medicação
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.idoso.Nome)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.medicamento.Nome)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.data_inicio)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.data_fim)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Dose)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Obs)
+        </td>
+        <td>
+            @item.diasfaltam
+        </td>
+        <td>
+            @Html.ActionLink("Editar", "Edit", new { id = item.ID_MedicaIdoso }) |
+            @Html.ActionLink("Detalhes", "Details", new { id = item.ID_MedicaIdoso }) |
+            @Html.ActionLink("Apagar", "Delete", new { id = item.ID_MedicaIdoso })
+        </td>
+    </tr>
+}
+
+</table>

@@ -1,0 +1,73 @@
+﻿@model M17E_Lar.Models.MedicaIdoso
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Detalhes</h2>
+
+<div>
+    <h4>Medicamento para Idoso</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.idoso.Nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.idoso.Nome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.medicamento.Nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.medicamento.Nome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.data_inicio)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.data_inicio)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.data_fim)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.data_fim)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Dose)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Dose)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Obs)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Obs)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.diasfaltam)
+
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.diasfaltam)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Editar", "Edit", new { id = Model.ID_MedicaIdoso }) |
+    @Html.ActionLink("Voltar", "Index")
+</p>

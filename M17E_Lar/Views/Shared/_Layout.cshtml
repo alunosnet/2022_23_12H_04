@@ -1,0 +1,93 @@
+﻿@using M17E_Lar.Helper
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title- Lar Idosos</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <style>
+        .navbar-azul {
+            background-color: #87CEFA; /* cor azul*/
+        }
+    </style>
+    <div class="navbar navbar-azul navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse" title="mais opções">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("Lar de Idosos", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    @if (Request.IsAuthenticated)
+                    {
+                        if (User.IsInRole("Administrador"))
+                        {
+                            <li>@Html.ActionLink("Utilizadores", "Index", "Utilizadores")</li>
+                            <li>
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Consultas</a>
+                                <ul class="dropdown-menu">
+                                    <li>@Html.ActionLink("Pesquisa", "Index", "Consultas")</li>
+                                    <li>@Html.ActionLink("Pesquisa Dinamica", "PesquisaDinamica", "Consultas")</li>
+                                    <li>@Html.ActionLink("Familiar que Mais Visita", "MaisVisFamiliar", "Consultas")</li>
+                                    <li>@Html.ActionLink("Visitas de um Familiar", "VisitasDeUmFamiliar", "Consultas")</li>
+
+                                </ul>
+                            </li>
+                        }
+                        <li>@Html.ActionLink("Visitas", "Index", "Visitas")</li>
+                        <li>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Utentes</a>
+                            <ul class="dropdown-menu">
+                                <li>@Html.ActionLink("Idosos", "Index", "Idosos")</li>
+                                <li>@Html.ActionLink("Medicamentos", "Index", "Medicamentos")</li>
+                                <li>@Html.ActionLink("Medicamento para Idosos", "Index", "MedicaIdosos")</li>
+                            </ul>
+                        </li>
+                        <li>@Html.ActionLink("Familiares", "Index", "Familiares")</li>
+
+
+                        <li>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                @Html.DisplayName("Bem-vindo(a) " + User.Identity.Name)
+                            </a>
+                            <ul class="dropdown-menu">
+                                <!--TODO: HELPER USERID-->
+                                <li>@Html.ActionLink("Editar perfil", "Edit/" + Html.UserId(User), "Utilizadores")</li>
+                                <li>@Html.ActionLink("Terminar sessão", "Logout", "Login")</li>
+                            </ul>
+                        </li>
+                    }
+                    else
+                    {
+                        <li>@Html.ActionLink("Login", "Index", "Login")</li>
+                    }
+                    <li>@Html.ActionLink("Página Inicial", "Index", "Home")</li>
+                    <li>@Html.ActionLink("Sobre", "About", "Home")</li>
+                    <li>@Html.ActionLink("Contato", "Contact", "Home")</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - Lar Idosos</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

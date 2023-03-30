@@ -1,0 +1,53 @@
+﻿@model IEnumerable<M17E_Lar.Models.Visita>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Criar Visita", "Create")
+    @Html.ActionLink("Ordenar por Data", "Index", new { id = 1 })
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.familiar.Nome)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.idoso.Nome)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DataVisita)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RelacaoFamiliar)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.familiar.Nome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.idoso.Nome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DataVisita)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RelacaoFamiliar)
+            </td>
+            <td>
+                @Html.ActionLink("Editar", "Edit", new { id = item.ID_Visita }) |
+                @Html.ActionLink("Detalhes", "Details", new { id = item.ID_Visita }) |
+                @Html.ActionLink("Apagar", "Delete", new { id = item.ID_Visita })
+            </td>
+        </tr>
+    }
+
+</table>

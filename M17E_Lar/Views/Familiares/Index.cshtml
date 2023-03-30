@@ -1,0 +1,66 @@
+﻿@model IEnumerable<M17E_Lar.Models.Familiar>
+
+@{
+    ViewBag.Title = "Lista de Familiares";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Criar Novo Familiar", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th></th>
+        <th>
+            @Html.DisplayNameFor(model => model.Nome)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Morada)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Telefone)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @{
+                string nome = Server.MapPath("~/Public/" + item.FamiliarID + ".jpg");
+                if (System.IO.File.Exists(nome))
+                {
+                    <img src="@Url.Content(String.Format("~/Public/{0}.jpg", item.FamiliarID))" width="150" />
+                }
+            }
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Nome)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Morada)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Email)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Telefone)
+        </td>
+        <td>
+            @Html.ActionLink("Editar", "Edit", new { id = item.FamiliarID }) |
+            @Html.ActionLink("Detalhes", "Details", new { id = item.FamiliarID }) |
+            @if (Request.IsAuthenticated && User.IsInRole("Administrador"))
+            {
+                @Html.ActionLink("Apagar", "Delete", new { id = item.FamiliarID })
+
+            }
+
+        </td>
+    </tr>
+}
+
+</table>

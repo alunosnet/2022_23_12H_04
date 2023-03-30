@@ -1,0 +1,18 @@
+﻿
+@{
+    ViewBag.Title = "VisitasDeUmFamiliar";
+}
+
+<h2>Visitas De Um Familiar</h2>
+
+
+<form method="post">
+    Nome do familiar: <input type="text" name="nome" /><br />
+    <input type="submit" value="Pesquisar" />
+</form>
+
+@if (ViewBag.visitas != null)
+{
+    @ViewBag.visitas.nome <span>|</span>
+    @ViewBag.visitas.n_visitas
+}

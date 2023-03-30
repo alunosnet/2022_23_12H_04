@@ -1,0 +1,55 @@
+﻿@model IEnumerable<M17E_Lar.Models.Medicamento>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Adicionar", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>Medicamentos</th>
+        <th>
+            @Html.DisplayNameFor(model => model.Nome)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Contra)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Forma)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @{
+                string nome = Server.MapPath("~/Medicamento/" + item.ID_Medicamento + ".jpg");
+                if (System.IO.File.Exists(nome))
+                {
+                    <img src="@Url.Content(String.Format("~/Medicamento/{0}.jpg", item.ID_Medicamento))" width="150" />
+                }
+            }
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Nome)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Contra)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Forma)
+        </td>
+        <td>
+            @Html.ActionLink("Editar", "Edit", new { id = item.ID_Medicamento }) |
+            @Html.ActionLink("Detalhes", "Details", new { id = item.ID_Medicamento }) |
+            @Html.ActionLink("Apagar", "Delete", new { id = item.ID_Medicamento })
+        </td>
+    </tr>
+}
+
+</table>
