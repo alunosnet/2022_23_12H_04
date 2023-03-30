@@ -1,0 +1,88 @@
+﻿
+create table Familiar(
+	ID INT IDENTITY Primary Key,
+	NIF varchar(9) unique ,
+	Nome Varchar(100) NOT NULL  check (len(Nome_Familiar)>=3),
+	Email varchar(100) unique check (Email like '%@%.%'),
+	Telemovel varchar(9) unique not null,
+	Data_Nasc date,
+	Morada varchar(150),
+	RelacaoFamiliar varchar(100) check (RelacaoFamiliar in ('Pai','Mãe','Filho(a)','Neto(a)','Irmã(o)')),
+
+)
+INSERT INTO Familiar(NIF_Familiar,Nome_Familiar, Email,Telemovel, Data_Nasc,Morada,RelacaoFamiliar)
+VALUES('123456789','jOSÉ','Jose@gmail.com','962367670','2005-12-26','Terreiro do Paço','Pai')
+
+drop table Familiar
+
+
+create table Idoso(
+	ID_Idoso INT IDENTITY Primary Key,
+	NIF_Idoso varchar(9) NOT NULL unique,
+	Nome_Idoso Varchar(100) NOT NULL check (len(Nome_Idoso)>=3),
+	Data_Nasc date,
+	Genero varchar(1) check (genero in ('Masculino','Feminino')),
+	Doencas varchar(100),
+	NUtenteSaude Varchar(9) NOT NULL unique,
+	Idade int,
+)
+
+
+INSERT INTO Idoso(NIF_Idoso,Nome_Idoso,Data_Nasc,Doencas,NUtenteSaude)
+VALUES('270066101','José Almeida','1999-12-12','Muitas','123456789')
+
+drop table Idosos
+
+create table Visitas(
+	ID_Idoso int references Idoso(ID_Idoso),
+	ID_Familiar int references Familiar(ID_Familiar),
+	
+	DataVisita date,
+	Hora Time,
+)
+
+INSERT INTO Visitas(DataVisita,Hora)
+VALUES('2022-11-10','22:22')
+drop Table Visitas
+
+/*Calcula dps de inserido */
+/*Não é Erro*/
+create trigger CalcularIdade
+ON Idoso
+after insert
+as
+begin
+	declare @data_nasc date;
+	declare @idade int;
+	declare @id_idoso int;
+	select @id_idoso = INSERTED.ID_Idoso FROM INSERTED;
+	select @data_nasc = INSERTED.Data_Nasc FROM INSERTED;
+	set @idade=datediff(year,@data_nasc,getdate());
+	UPDATE Idoso
+	SET idade=@idade
+	WHERE idoso.ID_Idoso=@id_idoso;
+end
+
+
+SELECT * FROM Idoso
+
+
+
+            /*sql = @"create trigger CalcularIdade
+                    ON Idoso
+                    after insert
+                    as
+                    begin
+	                    declare @data_nasc date;
+	                    declare @idade int;
+	                    declare @id_idoso int;
+	                    select @id_idoso = INSERTED.ID_Idoso FROM INSERTED;
+	                    select @data_nasc = INSERTED.Data_Nasc FROM INSERTED;
+	                    set @idade=datediff(year,@data_nasc,getdate());
+	                    UPDATE Idoso
+	                    SET idade=@idade
+	                    WHERE idoso.ID_Idoso=@id_idoso;
+                    end";
+            sqlCommand = new SqlCommand(sql, sqlConnection);
+            sqlCommand.ExecuteNonQuery();
+            */
